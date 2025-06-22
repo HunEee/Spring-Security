@@ -1,8 +1,8 @@
 package com.spring_security.TestSecurity.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @Configuration
 @EnableWebSecurity
@@ -37,6 +38,9 @@ public class SecurityConfig {
 		                	.permitAll()
 		                	
         );
+		//http basic 방식 -> 헤더에 아이디와 비밀번호를 추가하는 로직 -> formLogin과 같이 사용하지 않음
+		//http.httpBasic(Customizer.withDefaults());
+		
 		
 		//csrf 설정 ->  요청을 위조하여 사용자가 원하지 않아도 서버측으로 특정 요청을 강제로 보내는 방식 (회원 정보 변경, 게시글 CRUD를 사용자 모르게 요청)
 		//		   ->  앱에서 사용하는 API 서버의 경우 보통 세션을 STATELESS로 관리하기 때문에 스프링 시큐리티 csrf enable 설정을 진행하지 않아도 된다.
@@ -79,18 +83,25 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    
+
+    // InMemory 방식 
 //    @Bean
-//    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-//        UserDetails user = User.withUsername("user")
-//            .password(encoder.encode("1234"))
-//            .roles("USER")
-//            .build();
-//        UserDetails admin = User.withUsername("admin")
-//            .password(encoder.encode("admin1234"))
-//            .roles("ADMIN")
-//            .build();
-//        return new InMemoryUserDetailsManager(user, admin);
+//    public UserDetailsService userDetailsService() {
+//	    UserDetails user1 = User.builder()
+//	            .username("user1")
+//	            .password(bCryptPasswordEncoder().encode("1234"))
+//	            .roles("ADMIN")
+//	            .build();
+//	
+//	    UserDetails user2 = User.builder()
+//	            .username("user2")
+//	            .password(bCryptPasswordEncoder().encode("1234"))
+//	            .roles("USER")
+//	            .build();
+//	
+//	    return new InMemoryUserDetailsManager(user1, user2);
 //    }
-//    
+
     
 }
