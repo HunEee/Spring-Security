@@ -7,6 +7,11 @@
 <title>main page</title>
 </head>
 <body>
-main page	
+main page
+<hr>
+${id}
+${role}
+
+	
 </body>
 </html>
