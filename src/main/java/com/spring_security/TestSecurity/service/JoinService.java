@@ -20,8 +20,21 @@ public class JoinService {
 	
 	public void joinProcess(JoinDTO joinDTO) {
 		
-       //db에 이미 동일한 username을 가진 회원이 존재하는지?
-		
+       //db에 이미 동일한 username을 가진 회원이 존재하는지 여부
+        boolean isUser = userRepository.existsByUsername(joinDTO.getUsername());
+        if (isUser) {
+            return;
+        }
+        /*추가 인증 로직
+          	아이디의 자리수
+			아이디의 특수문자 포함 불가
+			admin과 같은 아이디 사용 불가
+			비밀번호 자리수
+			비밀번호 특수문자 포함 필수
+
+         */
+        
+        
 		System.out.println("JoinService: 데이터 바인딩");
 		
         UserEntity data = new UserEntity();

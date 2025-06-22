@@ -32,7 +32,7 @@ public class SecurityConfig {
 		
 		http.formLogin(
 			(form) -> form.loginPage("/login")
-		                	.loginProcessingUrl("/loginProc").defaultSuccessUrl("/main", true)
+		                	.loginProcessingUrl("/loginProc")
 		                	.permitAll()
         );
 		
